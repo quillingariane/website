@@ -4,13 +4,11 @@
   "private": true,
   "scripts": {
     "dev": "next dev",
-    "build": "prisma generate --schema=./prisma/schema && prisma db push --schema=./prisma/schema && next build",
+    "build": "prisma generate --schema=./prisma/schema && next build",
     "start": "next start",
     "lint": "eslint",
     "postinstall": "",
-    "db:generate": "prisma generate --schema=./prisma/schema/",
-    "db:push": "prisma db push --schema=./prisma/schema/ --accept-data-loss",
-    "db:seed": "prisma db execute --file ./prisma/Card_rows.sql"
+    "db:generate": "prisma generate --schema=./prisma/schema/"
   },
   "dependencies": {
     "@prisma/adapter-pg": "^7.2.0",

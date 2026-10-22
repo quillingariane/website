@@ -56,7 +56,7 @@ export const RankC = ({ size = 'md', className = "" }: RankIconProps) => (
 );
 
 // 3. Helper Component (Dynamic)
-// Useful if you are fetching the rank string from a database
+// Dynamically renders the appropriate rank icon based on the rank string
 export const RankBadge = ({ rank, size = 'md' }: { rank: string, size?: 'sm' | 'md' | 'lg' | 'xl' }) => {
   switch (rank.toUpperCase()) {
     case 'S': return <RankS size={size} />;

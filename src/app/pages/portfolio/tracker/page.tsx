@@ -6,12 +6,25 @@ import StatusUpdateForm from '@/components/StatusUpdateForm';
 import { VALID_APPLICATION_STATUSES } from '@/lib/constants';
 
 export default async function TrackerPage() {
-  // Fetch applications from Prisma
-  const applications = await prisma.application.findMany({
-    orderBy: {
-      createdAt: 'desc',
-    },
-  });
+  // Fetch applications (safe fallback when database is disconnected/deprecated)
+  let applications: Array<{
+    id: string;
+    company: string;
+    role: string;
+    status: string;
+    link?: string | null;
+  }> = [];
+
+  try {
+    applications = await prisma.application.findMany({
+      orderBy: {
+        createdAt: 'desc',
+      },
+    });
+  } catch {
+    // Database is deprecated / offline
+    applications = [];
+  }
 
   const statusOptions = VALID_APPLICATION_STATUSES;
 

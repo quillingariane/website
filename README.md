@@ -1,10 +1,10 @@
 # Website
 
-A Next.js project with Supabase local development environment.
+A Next.js web application and developer portfolio.
 
 ## Prerequisites
 
-- Docker with Compose plugin
+- Node.js (or Docker with Compose plugin)
 
 ## Getting Started
 
@@ -17,33 +17,18 @@ A Next.js project with Supabase local development environment.
    ```bash
    docker compose up
    ```
+   Or run locally:
+   ```bash
+   npm run dev
+   ```
 
-The first run will initialize all services automatically. The Next.js app will be available at http://localhost:3000.
+The Next.js app will be available at http://localhost:3000.
 
 ## Port Usage
-
-This project owns the following default ports. Running a second instance simultaneously is not supported.
 
 | Service | URL |
 |---|---|
 | Next.js app | http://localhost:3000 |
-| Supabase API (Kong) | http://127.0.0.1:54321 |
-| Supabase DB | postgresql://postgres:postgres@127.0.0.1:54322/postgres |
-| Supabase Studio | http://127.0.0.1:54323 |
-| Supabase Inbucket | http://127.0.0.1:54324 |
-| Supabase Auth | http://127.0.0.1:9999 |
-
-## Database Management
-
-Reset and re-push the Prisma schema:
-```bash
-docker compose run --rm web npx prisma db push
-```
-
-Seed the database with initial data:
-```bash
-docker compose run --rm web npm run db:seed
-```
 
 ## Learn More
 
@@ -57,5 +42,7 @@ You can check out [the Next.js GitHub repository](https://github.com/vercel/next
 ## Deploy on Vercel
 
 The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+
+For checks on unlinking the deprecated database from production Vercel, see [vercel-database-removal-checklist.md](vercel-database-removal-checklist.md).
 
 Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.

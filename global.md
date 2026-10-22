@@ -6,7 +6,7 @@ This document outlines the architecture and setup for running a **single, centra
 
 Instead of spinning up heavy database containers for every individual project, this setup uses the **Supabase CLI** to host one master database on the Arch Linux host machine.
 
-Individual web projects run in their own lightweight Docker containers and bridge out to the host machine to share the database and authentication system. Data is kept separated using PostgreSQL **schemas** (e.g., `public`, `crux`, `website`).
+Individual web projects run in their own lightweight Docker containers and bridge out to the host machine to share the database and authentication system. Data is kept separated using PostgreSQL **schemas** (e.g., `public`, `crux`). *(Note: Direct database connectivity for the `website` project is deprecated and decoupled).*
 
 ---
 

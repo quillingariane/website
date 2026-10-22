@@ -2,21 +2,32 @@ import { Pool } from 'pg'
 import { PrismaPg } from '@prisma/adapter-pg'
 import { PrismaClient } from '@prisma/client'
 
-const connectionString = `${process.env.DATABASE_URL}`
+// Note: Direct database usage is deprecated for the website project.
+const connectionString = process.env.DATABASE_URL
 
-// 1. Configure the PostgreSQL connection pool
-// This uses your 'DATABASE_URL' from.env (Port 6543)
-const pool = new Pool({ connectionString })
-
-// 2. Configure the Prisma Adapter
-const adapter = new PrismaPg(pool)
-
-// 3. Create a global variable to store the Prisma Client instance
-// This prevents multiple instances during hot-reloading in development
 const globalForPrisma = globalThis as unknown as { prisma: PrismaClient }
 
-export const prisma =
-  globalForPrisma.prisma ||
-  new PrismaClient({ adapter })
+function createPrismaClient(): PrismaClient {
+  if (connectionString) {
+    const pool = new Pool({ connectionString })
+    const adapter = new PrismaPg(pool)
+    return new PrismaClient({ adapter })
+  }
 
-if (process.env.NODE_ENV!== 'production') globalForPrisma.prisma = prisma
+  // Safe fallback mock when database is disconnected / deprecated
+  const createMock = (): any =>
+    new Proxy(() => Promise.resolve([]), {
+      get: (_target, prop) => {
+        if (prop === 'then') return undefined
+        return createMock()
+      },
+      apply: () => Promise.resolve([]),
+    })
+
+  return createMock() as unknown as PrismaClient
+}
+
+export const prisma = globalForPrisma.prisma || createPrismaClient()
+
+if (process.env.NODE_ENV !== 'production') globalForPrisma.prisma = prisma
+

@@ -41,15 +41,19 @@ export async function addApplication(formData: FormData) {
     // Link is optional, if provided and not empty, use it, otherwise null.
     const finalLink = (typeof link === 'string' && link.trim() !== '') ? link.trim() : null;
 
-    // 3. Insert into Prisma
-    await prisma.application.create({
-      data: { 
-        company: company.trim(), 
-        role: role.trim(), 
-        status: status as 'To Apply' | 'Applied' | 'Interviewing' | 'Offer' | 'Rejected', // Cast after validation
-        link: finalLink,
-      }
-    });
+    // 3. Insert into Prisma (if database is available)
+    try {
+      await prisma.application.create({
+        data: { 
+          company: company.trim(), 
+          role: role.trim(), 
+          status: status as 'To Apply' | 'Applied' | 'Interviewing' | 'Offer' | 'Rejected', // Cast after validation
+          link: finalLink,
+        }
+      });
+    } catch (dbErr) {
+      console.warn('Database is deprecated or unreachable. Operation skipped:', dbErr);
+    }
 
     // 4. Revalidate the page to show the new data instantly
     revalidatePath('/pages/portfolio/tracker');
@@ -78,11 +82,15 @@ export async function updateApplicationStatus(formData: FormData) {
     if (typeof status !== 'string' || !(VALID_APPLICATION_STATUSES as readonly string[]).includes(status)) {
       throw new Error('Invalid status provided.');
     }
-    // 3. Update in Prisma
-    await prisma.application.update({
-      where: { id: id.trim() },
-      data: { status: status as ApplicationStatus }, // Cast after validation
-    });
+    // 3. Update in Prisma (if database is available)
+    try {
+      await prisma.application.update({
+        where: { id: id.trim() },
+        data: { status: status as ApplicationStatus }, // Cast after validation
+      });
+    } catch (dbErr) {
+      console.warn('Database is deprecated or unreachable. Operation skipped:', dbErr);
+    }
 
     // 4. Revalidate the page
     revalidatePath('/pages/portfolio/tracker');

@@ -1,3 +1,4 @@
+# [DEPRECATED / ARCHIVED - Database features are deprecated for the website project]
 Database & Query Optimization Strategies
 ========================================
 
