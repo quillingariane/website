@@ -21,7 +21,7 @@ import ProjectCarousel from "@/components/portfolio/ProjectCarousel";
 
 export default function Portfolio() {
   const [darkMode, setDarkMode] = useState(false);
-  const [lang, setLang] = useState<'en' | 'fr'>('en');
+  const [lang, setLang] = useState<'en' | 'fr'>('fr');
 
   const t = translations[lang];
   const currentProjects = projectsData[lang];
