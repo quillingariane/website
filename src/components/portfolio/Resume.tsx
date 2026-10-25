@@ -39,7 +39,7 @@ const resumeData = {
       interests: "Centres d'intérêt"
     },
     profile: {
-      role: "Étudiant Développeur",
+      role: "Étudiant Développeur d'application",
       location: "Nantes / Montpellier, France",
     },
     languages: [
@@ -55,14 +55,14 @@ const resumeData = {
     ],
     experience: [
       {
-        role: "Développeur Stagiaire",
+        role: "Développeur Stagiaire - Fullstack",
         company: "Synergie",
         location: "Orvault, France",
         period: "Avril 2026 - Juillet 2026",
         description: "Recherche de solution et développement d'une application Microsoft Teams Tab reliant une base de données clients interne à RingCentral. Création de l'intégration via API pour afficher les fiches clients dans Teams lors d'appels entrants, et réalisation d'un script AutoHotkey pour automatiser le déploiement sur les postes utilisateurs."
       },
       {
-        role: "Développeur Stagiaire",
+        role: "Développeur Stagiaire - Fullstack",
         company: "Synergie",
         location: "Orvault, France",
         period: "Juin 2025 - Août 2025",
