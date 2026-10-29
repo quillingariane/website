@@ -446,7 +446,7 @@ export default function Resume({ lang = 'en' }: ResumeProps) {
         </div>
 
         {/* --- RIGHT COLUMN (Main Content) --- */}
-        <div className="lg:col-span-8 p-8 md:p-12 space-y-12 bg-card print:p-6 print:space-y-5">
+        <div className="lg:col-span-8 p-8 md:p-12 space-y-12 bg-card print:py-2 print:px-6 print:space-y-3">
           
           {/* Summary / Objective Section */}
           <div>
